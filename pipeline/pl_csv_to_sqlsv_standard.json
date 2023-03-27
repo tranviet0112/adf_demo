@@ -1,0 +1,222 @@
+{
+	"name": "pl_csv_to_sqlsv_standard",
+	"properties": {
+		"activities": [
+			{
+				"name": "data3p",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "YYYYMM",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "YYYYMM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_UPI",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "FLM_UPI",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "FLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_EMAIL",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "FLM_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SLM_UPI",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SLM_UPI",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SLM_EMAIL",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SLM_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_DOJ",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "FLM_DOJ",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MONTH_OF_WORKING",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MONTH_OF_WORKING",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS_WORKING",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "STATUS_WORKING",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IS_TRACKING_3P",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "IS_TRACKING_3P",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "RESULT_SKILL_SCORE",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "RESULT_SKILL_SCORE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dataimage",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "data3p.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "demodb",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "data3p"
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"YYYYMM": {
+				"type": "String"
+			},
+			"YYYYMM_": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-03-17T08:28:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,101 @@
+{
+	"name": "pl_csv_to_sqlsv_with_variable",
+	"properties": {
+		"activities": [
+			{
+				"name": "get_YYYYMM",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "YYYYMM",
+					"value": {
+						"value": "@concat(formatDateTime(addToTime(utcnow(), -4, 'Month'),'yyyy'),formatDateTime(addToTime(utcnow(), -4, 'Month'),'MM'))\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "insert_data_by_YYYYMM",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "get_YYYYMM",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "delete from dbo.data3p where YYYYMM = @{variables('YYYYMM')}",
+							"type": "Expression"
+						},
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dataimage",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "data3p.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "demodb",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "data3p"
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"YYYYMM": {
+				"type": "String"
+			},
+			"YYYYMM_": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-03-17T08:28:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

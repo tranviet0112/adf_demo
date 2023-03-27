@@ -1,0 +1,9 @@
+{
+	"name": "DataIngestionDF",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a162f86c-7bd9-4525-92f6-0c5db8632083",
+		"tenantId": "12aa7dea-7892-467e-b370-c0a8b6199e06"
+	}
+}

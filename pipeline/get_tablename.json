@@ -1,0 +1,47 @@
+{
+	"name": "get_tablename",
+	"properties": {
+		"activities": [
+			{
+				"name": "get_tablename",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select *\nfrom INFORMATION_SCHEMA.TABLES\nwhere TABLE_TYPE = 'BASE TABLE'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "demodb",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "data3p"
+						}
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"variables": {
+			"YYYYMM": {
+				"type": "String"
+			},
+			"YYYYMM_": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-03-17T13:26:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

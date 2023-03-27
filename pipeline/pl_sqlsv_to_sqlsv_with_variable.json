@@ -1,0 +1,245 @@
+{
+	"name": "pl_sqlsv_to_sqlsv_with_variable",
+	"properties": {
+		"activities": [
+			{
+				"name": "data3p",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "get_YYYYMM_",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "select * from dbo.data3p where YYYYMM = @{variables('YYYYMM_')}",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "delete from dbo.data3p_child where YYYYMM = @{variables('YYYYMM_')}",
+							"type": "Expression"
+						},
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "YYYYMM",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "YYYYMM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_UPI",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "FLM_UPI",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "FLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "FLM_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SLM_UPI",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SLM_UPI",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SLM_UPI_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SLM_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SLM_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FLM_DOJ",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "FLM_DOJ",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MONTH_OF_WORKING",
+									"type": "Double",
+									"physicalType": "float"
+								},
+								"sink": {
+									"name": "MONTH_OF_WORKING",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS_WORKING",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "STATUS_WORKING",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IS_TRACKING_3P",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "IS_TRACKING_3P",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "RESULT_SKILL_SCORE",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "RESULT_SKILL_SCORE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "demodb",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "data3p"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "demodb",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "data3p_child"
+						}
+					}
+				]
+			},
+			{
+				"name": "get_YYYYMM_",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "YYYYMM_",
+					"value": {
+						"value": "@concat(formatDateTime(addToTime(utcnow(), -4, 'Month'),'yyyy'),formatDateTime(addToTime(utcnow(), -4, 'Month'),'MM'))\n",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"YYYYMM": {
+				"type": "String"
+			},
+			"YYYYMM_": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-03-17T08:38:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,13 @@
+{
+	"name": "Fbapi",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Fbapils",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

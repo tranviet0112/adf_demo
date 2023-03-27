@@ -1,0 +1,13 @@
+{
+	"name": "Fbapils",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://graph.facebook.com/v16.0/me?fields=id%2Cname&access_token=EAAQ8xZAt7NQYBAIiihCgEtCU1L6LBqbOZAct5waAW3gjDcXvGvlSWRuuCsvizoFsooiKMnstyIcGdXTfiTHOIZCMZCDpzh8W4SQT3eUm7ZBIBN3t4YIxPkJNIvt2bC7FLs2mlra29LEzuiXucZC43GtdLtxSry1ZAgZAK7Ci6ozDzeggvbwpWejB2D52Plb19lYqZAxgroDvN5QZDZD",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

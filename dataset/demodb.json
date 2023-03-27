@@ -1,0 +1,76 @@
+{
+	"name": "demodb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "demols",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "YYYYMM",
+				"type": "varchar"
+			},
+			{
+				"name": "FLM_UPI",
+				"type": "varchar"
+			},
+			{
+				"name": "FLM_UPI_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "FLM_EMAIL",
+				"type": "varchar"
+			},
+			{
+				"name": "SLM_UPI",
+				"type": "varchar"
+			},
+			{
+				"name": "SLM_UPI_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "SLM_EMAIL",
+				"type": "varchar"
+			},
+			{
+				"name": "FLM_DOJ",
+				"type": "varchar"
+			},
+			{
+				"name": "MONTH_OF_WORKING",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "STATUS_WORKING",
+				"type": "varchar"
+			},
+			{
+				"name": "IS_TRACKING_3P",
+				"type": "varchar"
+			},
+			{
+				"name": "RESULT_SKILL_SCORE",
+				"type": "float",
+				"precision": 15
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().tablename",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

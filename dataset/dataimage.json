@@ -1,0 +1,81 @@
+{
+	"name": "dataimage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dataimage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"container": "dataimage"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "YYYYMM",
+				"type": "String"
+			},
+			{
+				"name": "FLM_UPI",
+				"type": "String"
+			},
+			{
+				"name": "FLM_UPI_NAME",
+				"type": "String"
+			},
+			{
+				"name": "FLM_EMAIL",
+				"type": "String"
+			},
+			{
+				"name": "SLM_UPI",
+				"type": "String"
+			},
+			{
+				"name": "SLM_UPI_NAME",
+				"type": "String"
+			},
+			{
+				"name": "SLM_EMAIL",
+				"type": "String"
+			},
+			{
+				"name": "FLM_DOJ",
+				"type": "String"
+			},
+			{
+				"name": "MONTH_OF_WORKING",
+				"type": "String"
+			},
+			{
+				"name": "STATUS_WORKING",
+				"type": "String"
+			},
+			{
+				"name": "IS_TRACKING_3P",
+				"type": "String"
+			},
+			{
+				"name": "RESULT_SKILL_SCORE",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

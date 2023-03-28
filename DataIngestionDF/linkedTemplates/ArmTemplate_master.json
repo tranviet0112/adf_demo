@@ -1,0 +1,118 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DataIngestionDF"
+		},
+		"dataimage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'dataimage'"
+		},
+		"demols_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'demols'"
+		},
+		"onprem_sql_ls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'onprem_sql_ls'"
+		},
+		"output3plake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'output3plake'"
+		},
+		"outputls_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'outputls'"
+		},
+		"Fbapils_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://graph.facebook.com/v16.0/me?fields=id%2Cname&access_token=EAAQ8xZAt7NQYBAIiihCgEtCU1L6LBqbOZAct5waAW3gjDcXvGvlSWRuuCsvizoFsooiKMnstyIcGdXTfiTHOIZCMZCDpzh8W4SQT3eUm7ZBIBN3t4YIxPkJNIvt2bC7FLs2mlra29LEzuiXucZC43GtdLtxSry1ZAgZAK7Ci6ozDzeggvbwpWejB2D52Plb19lYqZAxgroDvN5QZDZD"
+		},
+		"RestAPIls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://jsonplaceholder.typicode.com/users"
+		},
+		"output3plake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://3plakesa.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DataIngestionDF_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"dataimage_connectionString": {
+						"value": "[parameters('dataimage_connectionString')]"
+					},
+					"demols_connectionString": {
+						"value": "[parameters('demols_connectionString')]"
+					},
+					"output3plake_accountKey": {
+						"value": "[parameters('output3plake_accountKey')]"
+					},
+					"outputls_connectionString": {
+						"value": "[parameters('outputls_connectionString')]"
+					},
+					"onprem_sql_ls_connectionString": {
+						"value": "[parameters('onprem_sql_ls_connectionString')]"
+					},
+					"Fbapils_properties_typeProperties_url": {
+						"value": "[parameters('Fbapils_properties_typeProperties_url')]"
+					},
+					"RestAPIls_properties_typeProperties_url": {
+						"value": "[parameters('RestAPIls_properties_typeProperties_url')]"
+					},
+					"output3plake_properties_typeProperties_url": {
+						"value": "[parameters('output3plake_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "DataIngestionDF_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DataIngestionDF_ArmTemplate_0')]"
+			]
+		}
+	]
+}

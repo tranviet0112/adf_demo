@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "DataIngestionDF"
+		},
+		"dataimage_connectionString": {
+			"value": ""
+		},
+		"demols_connectionString": {
+			"value": ""
+		},
+		"onprem_sql_ls_connectionString": {
+			"value": ""
+		},
+		"output3plake_accountKey": {
+			"value": ""
+		},
+		"outputls_connectionString": {
+			"value": ""
+		},
+		"Fbapils_properties_typeProperties_url": {
+			"value": "https://graph.facebook.com/v16.0/me?fields=id%2Cname&access_token=EAAQ8xZAt7NQYBAIiihCgEtCU1L6LBqbOZAct5waAW3gjDcXvGvlSWRuuCsvizoFsooiKMnstyIcGdXTfiTHOIZCMZCDpzh8W4SQT3eUm7ZBIBN3t4YIxPkJNIvt2bC7FLs2mlra29LEzuiXucZC43GtdLtxSry1ZAgZAK7Ci6ozDzeggvbwpWejB2D52Plb19lYqZAxgroDvN5QZDZD"
+		},
+		"RestAPIls_properties_typeProperties_url": {
+			"value": "https://jsonplaceholder.typicode.com/users"
+		},
+		"output3plake_properties_typeProperties_url": {
+			"value": "https://3plakesa.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

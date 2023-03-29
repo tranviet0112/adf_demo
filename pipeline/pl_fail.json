@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Fail1",
+				"name": "fail",
 				"description": "",
 				"type": "Fail",
 				"dependsOn": [],

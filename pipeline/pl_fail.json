@@ -1,0 +1,19 @@
+{
+	"name": "pl_fail",
+	"properties": {
+		"activities": [
+			{
+				"name": "Fail1",
+				"description": "",
+				"type": "Fail",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "error pipeline",
+					"errorCode": "2200"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
